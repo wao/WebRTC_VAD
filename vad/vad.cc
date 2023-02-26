@@ -9,6 +9,7 @@
  */
 
 #include "include/vad.h"
+#include <iostream>
 
 
 class VadImpl final : public Vad {
@@ -38,10 +39,16 @@ public:
     void Reset() override {
         if (handle_)
             WebRtcVad_Free(handle_);
+        std::cout << "VadImp::Reset() 0" << std::endl;
         handle_ = WebRtcVad_Create();
         RTC_DCHECK(handle_);
-        RTC_DCHECK_EQ(WebRtcVad_Init(handle_), 0);
-        RTC_DCHECK_EQ(WebRtcVad_set_mode(handle_, aggressiveness_), 0);
+        std::cout << "VadImp::Reset() 1" << std::endl;
+        auto ret = WebRtcVad_Init(handle_);
+        RTC_DCHECK_EQ(ret, 0);
+        std::cout << "VadImp::Reset() 2" << std::endl;
+        ret = WebRtcVad_set_mode(handle_, aggressiveness_);
+        RTC_DCHECK_EQ(ret, 0);
+        std::cout << "VadImp::Reset() 3" << std::endl;
     }
 
 private:

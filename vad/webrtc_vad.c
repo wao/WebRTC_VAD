@@ -11,8 +11,10 @@
 #include "include/webrtc_vad.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "include/vad_core.h"
+
 
 static const int kInitCheck = 42;
 static const int kValidRates[] = {8000, 16000, 32000, 48000};
@@ -34,6 +36,7 @@ void WebRtcVad_Free(VadInst *handle) {
 // TODO(bjornv): Move WebRtcVad_InitCore() code here.
 int WebRtcVad_Init(VadInst *handle) {
     // Initialize the core VAD component.
+    printf("InitCore\n");
     return WebRtcVad_InitCore((VadInstT *) handle);
 }
 
@@ -56,19 +59,28 @@ int WebRtcVad_Process(VadInst *handle, int fs, const int16_t *audio_frame,
     int vad = -1;
     VadInstT *self = (VadInstT *) handle;
 
+    printf("process 0\n");
+
     if (handle == NULL) {
         return -1;
     }
 
+    printf("process 1\n");
     if (self->init_flag != kInitCheck) {
         return -1;
     }
+
+    printf("process 2\n");
     if (audio_frame == NULL) {
         return -1;
     }
+
+    printf("process 3\n");
     if (WebRtcVad_ValidRateAndFrameLength(fs, frame_length) != 0) {
         return -1;
     }
+
+    printf("process 4\n");
 
     if (fs == 48000) {
         vad = WebRtcVad_CalcVad48khz(self, audio_frame, frame_length);

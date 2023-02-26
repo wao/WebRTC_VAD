@@ -13,6 +13,7 @@
 #include "include/vad_filterbank.h"
 #include "include/vad_gmm.h"
 #include "include/vad_sp.h"
+#include <stdio.h>
 
 // Spectrum Weighting
 static const int16_t kSpectrumWeight[kNumChannels] = {6, 8, 10, 12, 14, 16};
@@ -489,9 +490,14 @@ static int16_t GmmProbability(VadInstT *self, int16_t *features,
 int WebRtcVad_InitCore(VadInstT *self) {
     int i;
 
+    printf("init 0");
+
     if (self == NULL) {
         return -1;
     }
+
+    printf("init 1");
+
 
     // Initialization of general struct variables.
     self->vad = 1;  // Speech active (=1).
@@ -537,6 +543,8 @@ int WebRtcVad_InitCore(VadInstT *self) {
         return -1;
     }
 
+    printf("init 2");
+
     self->init_flag = kInitCheck;
 
     return 0;
@@ -545,6 +553,8 @@ int WebRtcVad_InitCore(VadInstT *self) {
 // Set aggressiveness mode
 int WebRtcVad_set_mode_core(VadInstT *self, int mode) {
     int return_value = 0;
+
+    printf("set core mode %d\n", mode);
 
     switch (mode) {
         case 0:
@@ -668,6 +678,8 @@ int WebRtcVad_CalcVad16khz(VadInstT *inst, const int16_t *speech_frame,
 int WebRtcVad_CalcVad8khz(VadInstT *inst, const int16_t *speech_frame,
                           size_t frame_length) {
     int16_t feature_vector[kNumChannels], total_power;
+
+    printf("CaclVad8khz\n");
 
     // Get power in the bands
     total_power = WebRtcVad_CalculateFeatures(inst, speech_frame, frame_length,
