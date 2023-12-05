@@ -679,8 +679,6 @@ int WebRtcVad_CalcVad8khz(VadInstT *inst, const int16_t *speech_frame,
                           size_t frame_length) {
     int16_t feature_vector[kNumChannels], total_power;
 
-    printf("CaclVad8khz\n");
-
     // Get power in the bands
     total_power = WebRtcVad_CalculateFeatures(inst, speech_frame, frame_length,
                                               feature_vector);

@@ -11,7 +11,7 @@
 #ifndef COMMON_AUDIO_VAD_INCLUDE_VAD_H_
 #define COMMON_AUDIO_VAD_INCLUDE_VAD_H_
 
-#include <memory>
+//#include <memory>
 
 #include "webrtc_vad.h"
 #include "signal_processing_library.h"
@@ -44,7 +44,7 @@ public:
 };
 
 // Returns a Vad instance that's implemented on top of WebRtcVad.
-std::unique_ptr<Vad> CreateVad(Vad::Aggressiveness aggressiveness);
+//Vad * CreateVad(Vad::Aggressiveness aggressiveness);
 
 
 #endif  // COMMON_AUDIO_VAD_INCLUDE_VAD_H_
